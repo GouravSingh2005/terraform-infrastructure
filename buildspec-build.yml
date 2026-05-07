@@ -11,7 +11,7 @@ env:
 phases:
   install:
     commands:
-      # Install unzip
+      # Install dependencies
       - apt-get update
       - apt-get install -y unzip curl
 
@@ -25,13 +25,22 @@ phases:
 
   pre_build:
     commands:
-      # Terraform backend init
+      # Terraform backend initialization
       - terraform init -input=false -backend-config="bucket=${TF_STATE_BUCKET}" -backend-config="key=${TF_STATE_KEY}" -backend-config="region=${TF_STATE_REGION}" -backend-config="dynamodb_table=${TF_LOCK_TABLE}" -backend-config="encrypt=true"
+
+      # Terraform formatting check
+      - terraform fmt -check -recursive
+
+      # Terraform validation
+      - terraform validate
 
   build:
     commands:
-      # Terraform format check
-      - terraform fmt -check -recursive
+      # Terraform plan
+      - terraform plan -out=tfplan
+
+      # Terraform apply
+      - terraform apply -auto-approve tfplan
 
 artifacts:
   files:
