@@ -1,0 +1,9 @@
+########################################
+# TERRAFORM BACKEND CONFIGURATION
+########################################
+# Copy to backend.hcl and update values before first terraform init
+bucket         = "REPLACE_WITH_STATE_BUCKET"
+key            = "enterprise-3tier/prod/terraform.tfstate"
+region         = "us-east-1"
+dynamodb_table = "REPLACE_WITH_LOCK_TABLE"
+encrypt        = true
