@@ -1,0 +1,270 @@
+{
+    "builds": [
+        {
+            "id": "enterprise-3tier-prod-build:4181dfc8-5ec2-4f7f-854c-09547738ec55",
+            "arn": "arn:aws:codebuild:ap-south-1:626052500009:build/enterprise-3tier-prod-build:4181dfc8-5ec2-4f7f-854c-09547738ec55",
+            "buildNumber": 1,
+            "startTime": "2026-05-07T11:53:06.925000+00:00",
+            "endTime": "2026-05-07T11:53:14.714000+00:00",
+            "currentPhase": "COMPLETED",
+            "buildStatus": "FAILED",
+            "sourceVersion": "arn:aws:s3:::enterprise-3tier-prod-pipeline-artifacts/enterprise-3tier-pro/source_out/SkfI210",
+            "resolvedSourceVersion": "d5930c42699820806fe25d47825c952f4fd65782",
+            "projectName": "enterprise-3tier-prod-build",
+            "phases": [
+                {
+                    "phaseType": "SUBMITTED",
+                    "phaseStatus": "SUCCEEDED",
+                    "startTime": "2026-05-07T11:53:06.925000+00:00",
+                    "endTime": "2026-05-07T11:53:07.048000+00:00",
+                    "durationInSeconds": 0
+                },
+                {
+                    "phaseType": "QUEUED",
+                    "phaseStatus": "SUCCEEDED",
+                    "startTime": "2026-05-07T11:53:07.048000+00:00",
+                    "endTime": "2026-05-07T11:53:07.775000+00:00",
+                    "durationInSeconds": 0
+                },
+                {
+                    "phaseType": "PROVISIONING",
+                    "phaseStatus": "SUCCEEDED",
+                    "startTime": "2026-05-07T11:53:07.775000+00:00",
+                    "endTime": "2026-05-07T11:53:12.867000+00:00",
+                    "durationInSeconds": 5,
+                    "contexts": [
+                        {
+                            "statusCode": "",
+                            "message": ""
+                        }
+                    ]
+                },
+                {
+                    "phaseType": "DOWNLOAD_SOURCE",
+                    "phaseStatus": "FAILED",
+                    "startTime": "2026-05-07T11:53:12.867000+00:00",
+                    "endTime": "2026-05-07T11:53:14.218000+00:00",
+                    "durationInSeconds": 1,
+                    "contexts": [
+                        {
+                            "statusCode": "YAML_FILE_ERROR",
+                            "message": "stat /codebuild/output/src4276469708/src/buildspec-build.yml: no such file or directory"
+                        }
+                    ]
+                },
+                {
+                    "phaseType": "FINALIZING",
+                    "phaseStatus": "SUCCEEDED",
+                    "startTime": "2026-05-07T11:53:14.218000+00:00",
+                    "endTime": "2026-05-07T11:53:14.714000+00:00",
+                    "durationInSeconds": 0,
+                    "contexts": [
+                        {
+                            "statusCode": "",
+                            "message": ""
+                        }
+                    ]
+                },
+                {
+                    "phaseType": "COMPLETED",
+                    "startTime": "2026-05-07T11:53:14.714000+00:00"
+                }
+            ],
+            "source": {
+                "type": "CODEPIPELINE",
+                "buildspec": "buildspec-build.yml",
+                "insecureSsl": false
+            },
+            "secondarySources": [],
+            "secondarySourceVersions": [],
+            "artifacts": {
+                "location": "arn:aws:s3:::enterprise-3tier-prod-pipeline-artifacts/enterprise-3tier-pro/build_outp/6qC4X6T",
+                "encryptionDisabled": false
+            },
+            "cache": {
+                "type": "NO_CACHE"
+            },
+            "environment": {
+                "type": "LINUX_CONTAINER",
+                "image": "aws/codebuild/standard:7.0",
+                "computeType": "BUILD_GENERAL1_SMALL",
+                "environmentVariables": [
+                    {
+                        "name": "TF_VAR_desired_capacity",
+                        "value": "2",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_STATE_BUCKET",
+                        "value": "enterprise-3tier-prod-tfstate",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_INPUT",
+                        "value": "false",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_VAR_max_capacity",
+                        "value": "4",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_LOCK_TABLE",
+                        "value": "enterprise-3tier-prod-tf-locks",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_VAR_codestar_connection_arn",
+                        "value": "arn:aws:codeconnections:ap-south-1:626052500009:connection/b1906179-1122-4e4c-a228-eed881af8441",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_VAR_domain_name",
+                        "value": "example.com",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_VAR_github_repo",
+                        "value": "terraform-infrastructure",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_VAR_enable_deletion_protection",
+                        "value": "true",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_STATE_KEY",
+                        "value": "enterprise-3tier/prod/terraform.tfstate",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_VAR_environment",
+                        "value": "prod",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_VAR_acm_certificate_arn",
+                        "value": "arn:aws:acm:ap-south-1:626052500009:certificate/96174bb0-b5d4-4278-a9fb-1cb7457dc95a",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_VAR_region",
+                        "value": "ap-south-1",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_VAR_project_name",
+                        "value": "enterprise-3tier",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_VAR_subdomain",
+                        "value": "app",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_VAR_app_port",
+                        "value": "3000",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_VAR_vpc_cidr",
+                        "value": "10.20.0.0/16",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_VAR_private_db_subnet_cidrs",
+                        "value": "[\"10.20.20.0/24\",\"10.20.21.0/24\"]",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_VAR_enable_alb_access_logs",
+                        "value": "false",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_VAR_owner",
+                        "value": "platform-team",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_IN_AUTOMATION",
+                        "value": "true",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_VAR_public_subnet_cidrs",
+                        "value": "[\"10.20.0.0/24\",\"10.20.1.0/24\"]",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_VAR_github_branch",
+                        "value": "main",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_VAR_monitoring_alarm_actions",
+                        "value": "[]",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_VAR_instance_type",
+                        "value": "t3.micro",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_VAR_min_capacity",
+                        "value": "2",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_VAR_github_owner",
+                        "value": "GouravSingh2005",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_STATE_REGION",
+                        "value": "ap-south-1",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_VAR_private_app_subnet_cidrs",
+                        "value": "[\"10.20.10.0/24\",\"10.20.11.0/24\"]",
+                        "type": "PLAINTEXT"
+                    },
+                    {
+                        "name": "TF_VAR_root_volume_size",
+                        "value": "20",
+                        "type": "PLAINTEXT"
+                    }
+                ],
+                "privilegedMode": false,
+                "imagePullCredentialsType": "CODEBUILD"
+            },
+            "serviceRole": "arn:aws:iam::626052500009:role/enterprise-3tier-prod-codebuild-role",
+            "logs": {
+                "groupName": "/aws/codebuild/enterprise-3tier-prod-build",
+                "streamName": "build/4181dfc8-5ec2-4f7f-854c-09547738ec55",
+                "deepLink": "https://console.aws.amazon.com/cloudwatch/home?region=ap-south-1#logsV2:log-groups/log-group/$252Faws$252Fcodebuild$252Fenterprise-3tier-prod-build/log-events/build$252F4181dfc8-5ec2-4f7f-854c-09547738ec55",
+                "cloudWatchLogsArn": "arn:aws:logs:ap-south-1:626052500009:log-group:/aws/codebuild/enterprise-3tier-prod-build:log-stream:build/4181dfc8-5ec2-4f7f-854c-09547738ec55",
+                "cloudWatchLogs": {
+                    "status": "ENABLED",
+                    "groupName": "/aws/codebuild/enterprise-3tier-prod-build",
+                    "streamName": "build"
+                },
+                "s3Logs": {
+                    "status": "DISABLED",
+                    "encryptionDisabled": false
+                }
+            },
+            "timeoutInMinutes": 45,
+            "queuedTimeoutInMinutes": 480,
+            "buildComplete": true,
+            "initiator": "codepipeline/enterprise-3tier-prod-pipeline",
+            "encryptionKey": "arn:aws:kms:ap-south-1:626052500009:alias/aws/s3"
+        }
+    ],
+    "buildsNotFound": []
+}

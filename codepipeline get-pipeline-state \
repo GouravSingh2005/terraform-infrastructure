@@ -1,0 +1,28 @@
+{
+    "pipelines": [
+        {
+            "name": "enterprise-3tier-prod-pipeline",
+            "version": 1,
+            "pipelineType": "V1",
+            "executionMode": "SUPERSEDED",
+            "created": "2026-05-07T11:40:31.278000+00:00",
+            "updated": "2026-05-07T11:40:31.278000+00:00"
+        },
+        {
+            "name": "London-pipeline",
+            "version": 1,
+            "pipelineType": "V2",
+            "executionMode": "QUEUED",
+            "created": "2026-05-07T11:37:09.411000+00:00",
+            "updated": "2026-05-07T11:37:09.411000+00:00"
+        },
+        {
+            "name": "my-app-pipeline",
+            "version": 2,
+            "pipelineType": "V2",
+            "executionMode": "QUEUED",
+            "created": "2026-05-06T18:00:24.414000+00:00",
+            "updated": "2026-05-06T18:37:34.393000+00:00"
+        }
+    ]
+}

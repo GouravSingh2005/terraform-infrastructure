@@ -1,0 +1,90 @@
+{
+    "pipelineName": "enterprise-3tier-prod-pipeline",
+    "pipelineVersion": 1,
+    "stageStates": [
+        {
+            "stageName": "SOURCE",
+            "inboundExecutions": [],
+            "inboundTransitionState": {
+                "enabled": true
+            },
+            "actionStates": [
+                {
+                    "actionName": "GitHubSource",
+                    "currentRevision": {
+                        "revisionId": "d5930c42699820806fe25d47825c952f4fd65782"
+                    },
+                    "latestExecution": {
+                        "actionExecutionId": "734cccf6-c392-4f24-ab47-85944cd1f5ad",
+                        "status": "Succeeded",
+                        "summary": "{\"ProviderType\":\"GitHub\",\"CommitMessage\":\"ci: test pipeline trigger\"}",
+                        "lastStatusChange": "2026-05-07T11:53:05.903000+00:00",
+                        "externalExecutionId": "d5930c42699820806fe25d47825c952f4fd65782"
+                    },
+                    "entityUrl": "https://ap-south-1.console.aws.amazon.com/codesuite/settings/connections/redirect?connectionArn=arn:aws:codeconnections:ap-south-1:626052500009:connection/b1906179-1122-4e4c-a228-eed881af8441&referenceType=BRANCH&FullRepositoryId=GouravSingh2005/terraform-infrastructure&Branch=main",
+                    "revisionUrl": "https://ap-south-1.console.aws.amazon.com/codesuite/settings/connections/redirect?connectionArn=arn:aws:codeconnections:ap-south-1:626052500009:connection/b1906179-1122-4e4c-a228-eed881af8441&referenceType=COMMIT&FullRepositoryId=GouravSingh2005/terraform-infrastructure&Commit=d5930c42699820806fe25d47825c952f4fd65782"
+                }
+            ],
+            "latestExecution": {
+                "pipelineExecutionId": "0968889f-2672-4e2c-8e5a-74b993b174c4",
+                "status": "Succeeded"
+            }
+        },
+        {
+            "stageName": "BUILD",
+            "inboundExecutions": [],
+            "inboundTransitionState": {
+                "enabled": true
+            },
+            "actionStates": [
+                {
+                    "actionName": "TerraformFmtInit",
+                    "latestExecution": {
+                        "actionExecutionId": "2e17173e-22a5-4671-8d5a-591a75bdb8d2",
+                        "status": "Failed",
+                        "lastStatusChange": "2026-05-07T11:53:38.099000+00:00",
+                        "externalExecutionId": "enterprise-3tier-prod-build:4181dfc8-5ec2-4f7f-854c-09547738ec55",
+                        "externalExecutionUrl": "https://console.aws.amazon.com/codebuild/home?region=ap-south-1#/builds/enterprise-3tier-prod-build:4181dfc8-5ec2-4f7f-854c-09547738ec55/view/new",
+                        "errorDetails": {
+                            "code": "JobFailed",
+                            "message": "Build terminated with state: FAILED. Phase: DOWNLOAD_SOURCE, Code: YAML_FILE_ERROR, Message: stat /codebuild/output/src4276469708/src/buildspec-build.yml: no such file or directory"
+                        }
+                    },
+                    "entityUrl": "https://console.aws.amazon.com/codebuild/home?region=ap-south-1#/projects/enterprise-3tier-prod-build/view"
+                }
+            ],
+            "latestExecution": {
+                "pipelineExecutionId": "0968889f-2672-4e2c-8e5a-74b993b174c4",
+                "status": "Failed"
+            }
+        },
+        {
+            "stageName": "TEST",
+            "inboundExecutions": [],
+            "inboundTransitionState": {
+                "enabled": true
+            },
+            "actionStates": [
+                {
+                    "actionName": "TerraformValidatePlan",
+                    "entityUrl": "https://console.aws.amazon.com/codebuild/home?region=ap-south-1#/projects/enterprise-3tier-prod-test/view"
+                }
+            ]
+        },
+        {
+            "stageName": "DEPLOY",
+            "inboundExecutions": [],
+            "inboundTransitionState": {
+                "enabled": true
+            },
+            "actionStates": [
+                {
+                    "actionName": "TerraformApply",
+                    "entityUrl": "https://console.aws.amazon.com/codebuild/home?region=ap-south-1#/projects/enterprise-3tier-prod-deploy/view"
+                }
+            ]
+        }
+    ],
+    "created": "2026-05-07T11:40:31.278000+00:00",
+    "updated": "2026-05-07T11:40:31.278000+00:00"
+}
