@@ -6,11 +6,19 @@
 # naming conventions, tag strategies, and resource naming logic.
 
 locals {
-  # Standard prefix applied to resource names for quick identification
+
+  ########################################
+  # RESOURCE NAMING
+  ########################################
+
+  # Standard prefix applied to resource names
   name_prefix = "${var.project_name}-${var.environment}"
 
-  # Common tags applied to ALL resources via default_tags in the provider.
-  # Enforces consistent tagging for cost allocation, access control, and automation.
+  ########################################
+  # COMMON TAGS
+  ########################################
+
+  # Common tags applied to all resources
   common_tags = {
     Environment = var.environment
     Project     = var.project_name
@@ -19,38 +27,103 @@ locals {
     Terraform   = "true"
   }
 
-  # Select the first 2 availability zones from the region for multi-AZ deployment
-  availability_zones = slice(data.aws_availability_zones.available.names, 0, 2)
+  ########################################
+  # AVAILABILITY ZONES
+  ########################################
 
-  # S3 bucket and DynamoDB table names for remote state and locking.
-  # Defaults are used if custom names are not provided.
-  alb_access_logs_bucket_name = coalesce(var.alb_access_logs_bucket_name, "${local.name_prefix}-alb-logs")
-  tf_state_bucket_name        = coalesce(var.tf_state_bucket_name, "${local.name_prefix}-tfstate")
-  tf_lock_table_name          = coalesce(var.tf_lock_table_name, "${local.name_prefix}-tf-locks")
+  # Select first 2 AZs for multi-AZ deployment
+  availability_zones = slice(
+    data.aws_availability_zones.available.names,
+    0,
+    2
+  )
 
-  # Terraform state file key path within the S3 bucket
+  ########################################
+  # REMOTE STATE CONFIGURATION
+  ########################################
+
+  # S3 bucket for ALB access logs
+  alb_access_logs_bucket_name = coalesce(
+    var.alb_access_logs_bucket_name,
+    "${local.name_prefix}-alb-logs"
+  )
+
+  # Terraform state bucket
+  tf_state_bucket_name = coalesce(
+    var.tf_state_bucket_name,
+    "${local.name_prefix}-tfstate"
+  )
+
+  # DynamoDB lock table
+  tf_lock_table_name = coalesce(
+    var.tf_lock_table_name,
+    "${local.name_prefix}-tf-locks"
+  )
+
+  # Terraform remote state key
   tf_state_key = "${var.project_name}/${var.environment}/terraform.tfstate"
 
-  # GitHub owner/repo may be provided as a single "owner/repo" string.
-  # Parse it into `github_owner` and `github_repo` when present; fall back
-  # to the explicit variables if those are set.
-  github_owner = var.github_repository != null && length(split("/", var.github_repository)) == 2 ? split("/", var.github_repository)[0] : var.github_owner
-  github_repo  = var.github_repository != null && length(split("/", var.github_repository)) == 2 ? split("/", var.github_repository)[1] : var.github_repo
+  ########################################
+  # GITHUB REPOSITORY PARSING
+  ########################################
 
-  # Pipeline is only created if a CodeStar connection ARN exists and we have
-  # both owner and repo available (either parsed or provided explicitly).
-  pipeline_enabled = var.codestar_connection_arn != null && local.github_owner != null && local.github_repo != null
+  # Supports:
+  # github_repository = "owner/repo"
+  # OR separate github_owner/github_repo variables
 
-  # Resource naming conventions - used for infrastructure resource identification
+  github_parts = (
+    var.github_repository != null
+    ? split("/", var.github_repository)
+    : []
+  )
+
+  github_owner = (
+    length(local.github_parts) == 2
+    ? local.github_parts[0]
+    : var.github_owner
+  )
+
+  github_repo = (
+    length(local.github_parts) == 2
+    ? local.github_parts[1]
+    : var.github_repo
+  )
+
+  ########################################
+  # PIPELINE ENABLEMENT
+  ########################################
+
+  # Pipeline enabled only when CodeStar ARN and repo info exist
+  pipeline_enabled = (
+    var.codestar_connection_arn != null &&
+    local.github_owner != null &&
+    local.github_repo != null
+  )
+
+  ########################################
+  # RESOURCE IDENTIFIERS
+  ########################################
+
   application_name  = "${local.name_prefix}-app"
   vpc_name          = "${local.name_prefix}-vpc"
   alb_name          = "${local.name_prefix}-alb"
   target_group_name = "${local.name_prefix}-tg"
 
-  # CloudWatch log group names for centralized logging from EC2 instances
-  cloudwatch_application_log_group = "/aws/ec2/${local.name_prefix}/application"
-  cloudwatch_userdata_log_group    = "/aws/ec2/${local.name_prefix}/userdata"
+  ########################################
+  # CLOUDWATCH LOG GROUPS
+  ########################################
 
-  # Canonical application URL used in documentation and health checks
+  cloudwatch_application_log_group = (
+    "/aws/ec2/${local.name_prefix}/application"
+  )
+
+  cloudwatch_userdata_log_group = (
+    "/aws/ec2/${local.name_prefix}/userdata"
+  )
+
+  ########################################
+  # APPLICATION URL
+  ########################################
+
   application_url = "https://${var.subdomain}.${var.domain_name}"
 }
