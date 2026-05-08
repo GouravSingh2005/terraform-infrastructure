@@ -56,7 +56,7 @@ pipeline {
 
         TF_VAR_alb_access_logs_bucket_name = "enterprise-3tier-prod-alb-logs"
 
-        TF_VAR_tf_state_bucket_name = "setup-enterprise-3tier-prod-tfstate-tfstate"
+        TF_VAR_tf_state_bucket_name = "setup-enterprise-3tier-prod-tfstate-tfstate1"
 
         TF_VAR_tf_lock_table_name = "setup-enterprise-3tier-prod-tfstate-tf-locks"
 
@@ -67,7 +67,7 @@ pipeline {
         TF_VAR_github_branch = "main"
 
         // ACM Certificate ARN
-        TF_VAR_acm_certificate_arn = "arn:aws:acm:ap-south-1:626052500009:certificate/96174bb0-b5d4-4278-a9fb-1cb7457dc95a"
+        TF_VAR_acm_certificate_arn = "arn:aws:acm:us-east-1:941141114858:certificate/a6e19fe9-def3-4ed4-a9f9-6cb90479704e"
 
         // Cross Account Configuration
         TARGET_ACCOUNT_ID = "941141114858"
