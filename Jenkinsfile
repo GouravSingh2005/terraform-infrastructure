@@ -12,8 +12,8 @@ pipeline {
         AWS_REGION = "ap-south-1"
         AWS_DEFAULT_REGION = "ap-south-1"
 
-        // Backend Configuration
-        TF_STATE_BUCKET = "setup-enterprise-3tier-prod-tfstate-tfstate"
+        // Backend Configuration (Account B)
+        TF_STATE_BUCKET = "setup-enterprise-3tier-prod-tfstate-tfstate1"
 
         TF_STATE_KEY = "prod/terraform.tfstate"
 
