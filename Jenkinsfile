@@ -68,6 +68,11 @@ pipeline {
 
         // ACM Certificate ARN
         TF_VAR_acm_certificate_arn = "arn:aws:acm:ap-south-1:626052500009:certificate/96174bb0-b5d4-4278-a9fb-1cb7457dc95a"
+
+        // Cross Account Configuration
+        TARGET_ACCOUNT_ID = "941141114858"
+
+        TARGET_ROLE_NAME = "JenkinsTerraformRole"
     }
 
     options {
@@ -136,17 +141,24 @@ pipeline {
 
             steps {
 
-                echo "========== Terraform Init =========="
+                withAWS(
+                    role: "${TARGET_ROLE_NAME}",
+                    roleAccount: "${TARGET_ACCOUNT_ID}",
+                    region: "ap-south-1"
+                ) {
 
-                sh '''
-                    terraform init \
-                    -input=false \
-                    -backend-config="bucket=${TF_STATE_BUCKET}" \
-                    -backend-config="key=${TF_STATE_KEY}" \
-                    -backend-config="region=${TF_STATE_REGION}" \
-                    -backend-config="dynamodb_table=${TF_LOCK_TABLE}" \
-                    -backend-config="encrypt=true"
-                '''
+                    echo "========== Terraform Init =========="
+
+                    sh '''
+                        terraform init \
+                        -input=false \
+                        -backend-config="bucket=${TF_STATE_BUCKET}" \
+                        -backend-config="key=${TF_STATE_KEY}" \
+                        -backend-config="region=${TF_STATE_REGION}" \
+                        -backend-config="dynamodb_table=${TF_LOCK_TABLE}" \
+                        -backend-config="encrypt=true"
+                    '''
+                }
             }
         }
 
@@ -166,11 +178,18 @@ pipeline {
 
             steps {
 
-                echo "========== Terraform Validate =========="
+                withAWS(
+                    role: "${TARGET_ROLE_NAME}",
+                    roleAccount: "${TARGET_ACCOUNT_ID}",
+                    region: "ap-south-1"
+                ) {
 
-                sh '''
-                    terraform validate
-                '''
+                    echo "========== Terraform Validate =========="
+
+                    sh '''
+                        terraform validate
+                    '''
+                }
             }
         }
 
@@ -178,11 +197,18 @@ pipeline {
 
             steps {
 
-                echo "========== Terraform Plan =========="
+                withAWS(
+                    role: "${TARGET_ROLE_NAME}",
+                    roleAccount: "${TARGET_ACCOUNT_ID}",
+                    region: "ap-south-1"
+                ) {
 
-                sh '''
-                    terraform plan -out=tfplan
-                '''
+                    echo "========== Terraform Plan =========="
+
+                    sh '''
+                        terraform plan -out=tfplan
+                    '''
+                }
             }
         }
 
@@ -190,11 +216,18 @@ pipeline {
 
             steps {
 
-                echo "========== Terraform Apply =========="
+                withAWS(
+                    role: "${TARGET_ROLE_NAME}",
+                    roleAccount: "${TARGET_ACCOUNT_ID}",
+                    region: "ap-south-1"
+                ) {
 
-                sh '''
-                    terraform apply -auto-approve tfplan
-                '''
+                    echo "========== Terraform Apply =========="
+
+                    sh '''
+                        terraform apply -auto-approve tfplan
+                    '''
+                }
             }
         }
     }
