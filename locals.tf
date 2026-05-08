@@ -93,9 +93,9 @@ locals {
   # PIPELINE ENABLEMENT
   ########################################
 
-  # Pipeline enabled only when CodeStar ARN and repo info exist
+  # Pipeline enabled when repo info exists (Jenkins handles GitHub integration)
+  # Note: codestar_connection_arn is deprecated and not used by Jenkins pipeline
   pipeline_enabled = (
-    var.codestar_connection_arn != null &&
     local.github_owner != null &&
     local.github_repo != null
   )
