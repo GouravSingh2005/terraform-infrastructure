@@ -13,10 +13,13 @@ pipeline {
         AWS_DEFAULT_REGION = "ap-south-1"
 
         // Backend Configuration
-        TF_STATE_BUCKET = "enterprise-3tier-prod-tfstate"
+        TF_STATE_BUCKET = "setup-enterprise-3tier-prod-tfstate-tfstate"
+
         TF_STATE_KEY = "prod/terraform.tfstate"
+
         TF_STATE_REGION = "ap-south-1"
-        TF_LOCK_TABLE = "enterprise-3tier-prod-tf-locks"
+
+        TF_LOCK_TABLE = "setup-enterprise-3tier-prod-tfstate-tf-locks"
 
         // Terraform Variables
         TF_VAR_region = "ap-south-1"
@@ -53,9 +56,9 @@ pipeline {
 
         TF_VAR_alb_access_logs_bucket_name = "enterprise-3tier-prod-alb-logs"
 
-        TF_VAR_tf_state_bucket_name = "enterprise-3tier-prod-tfstate"
+        TF_VAR_tf_state_bucket_name = "setup-enterprise-3tier-prod-tfstate-tfstate"
 
-        TF_VAR_tf_lock_table_name = "enterprise-3tier-prod-tf-locks"
+        TF_VAR_tf_lock_table_name = "setup-enterprise-3tier-prod-tfstate-tf-locks"
 
         TF_VAR_github_owner = "GouravSingh2005"
 
