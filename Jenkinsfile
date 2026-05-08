@@ -65,6 +65,9 @@ pipeline {
         TF_VAR_github_repo = "terraform-infrastructure"
 
         TF_VAR_github_branch = "main"
+
+        // ACM Certificate ARN
+        TF_VAR_acm_certificate_arn = "arn:aws:acm:ap-south-1:626052500009:certificate/96174bb0-b5d4-4278-a9fb-1cb7457dc95a"
     }
 
     options {
@@ -83,8 +86,8 @@ pipeline {
 
     triggers {
 
-        // Jenkins checks GitHub every 15 minutes
-        pollSCM('H/15 * * * *')
+        // Jenkins checks GitHub every minute
+        pollSCM('* * * * *')
     }
 
     stages {
